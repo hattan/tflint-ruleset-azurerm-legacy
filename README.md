@@ -12,7 +12,38 @@ TFLint ruleset plugin for Terraform Provider for Azure (Resource Manager)
 
 ## Installation
 
-Download the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-azurerm` (or `./.tflint.d/plugins/tflint-ruleset-azurerm`). When using the plugin, configure as follows in `.tflint.hcl`:
+### Building the plugin
+
+Clone the repository locally by running the following command:
+
+```
+git clone --recurse-submodules
+```
+
+Note: the `--recurse-submodules` flag is used to pull the files for the `azure-rest-api-specs` submodule.
+
+Next, run the following command, which will build the plugin:
+
+```
+$ make
+```
+
+### Installing the plugin
+
+After building, you can easily install the plugin using:
+
+```
+$ make install
+```
+
+This command will install the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-azurerm` (or `./.tflint.d/plugins/tflint-ruleset-azurerm`).
+
+
+### Enabling the plugin
+
+Create a file in the root of your Terraform project directory named `.tflint.hcl` if one does not already exist.
+
+To enable the azurerm ruleset plugin for use, add the following configuration to the `.tflint.hcl` file:
 
 ```hcl
 plugin "azurerm" {
@@ -24,16 +55,4 @@ plugin "azurerm" {
 
 200+ rules are available. See the [documentation](docs/README.md).
 
-## Building the plugin
 
-Clone the repository locally and run the following command:
-
-```
-$ make
-```
-
-You can easily install the built plugin with the following:
-
-```
-$ make install
-```
