@@ -9,6 +9,7 @@ import (
 var Rules = append([]tflint.Rule{
 	NewAzurermLinuxVirtualMachineInvalidSizeRule(),
 	NewAzurermLinuxVirtualMachineScaleSetInvalidSkuRule(),
+	NewAzurermStorageAccountInvalidNameRule(),
 	NewAzurermVirtualMachineInvalidVMSizeRule(),
 	NewAzurermWindowsVirtualMachineInvalidSizeRule(),
 	NewAzurermWindowsVirtualMachineScaleSetInvalidSkuRule(),
