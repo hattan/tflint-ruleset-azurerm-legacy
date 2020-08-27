@@ -16,7 +16,7 @@ var rule = AzurermStorageAccountInvalidNameRule(AzurermStorageAccountInvalidName
 	pattern:       regexp.MustCompile(`^[a-z0-9]{3,24}$`),
 })
 
-func Test_AzurermStorageAccountInvalidName_invalid(t *testing.T) {
+func Test_AzurermStorageAccountNameRule(t *testing.T) {
 	for _, test := range testCases {
 		testDisplay := fmt.Sprintf("%d - %s", test.testID, test.testName)
 		t.Run(testDisplay, func(t *testing.T) {
@@ -38,28 +38,17 @@ func Test_AzurermStorageAccountInvalidName_invalid(t *testing.T) {
 }
 
 var testCases = []struct {
-	hcl      string
 	testID   int
 	testName string
+	hcl      string
 	expected helper.Issues
 }{
 
 	{
 		testID:   1,
-		testName: "Valid Name",
-		hcl: `
-			resource "azurerm_storage_account" "invalid" {
-				name = "thisisvalid123"
-			}
-		`,
-		expected: helper.Issues{},
-	},
-
-	{
-		testID:   2,
 		testName: "Upper Case Characters not allowed",
 		hcl: `
-			resource "azurerm_storage_account" "invalid" {
+			resource "azurerm_storage_account" "test" {
 				name = "Notavalidname"
 			}
 		`,
@@ -77,10 +66,10 @@ var testCases = []struct {
 	},
 
 	{
-		testID:   3,
+		testID:   2,
 		testName: "Non Alpha Numeric Characters not allowed",
 		hcl: `
-			resource "azurerm_storage_account" "invalid" {
+			resource "azurerm_storage_account" "test" {
 				name = "notavalid_name!"
 			}
 		`,
@@ -98,10 +87,10 @@ var testCases = []struct {
 	},
 
 	{
-		testID:   4,
+		testID:   3,
 		testName: "Non Alpha Numeric Characters with numbers not allowed",
 		hcl: `
-			resource "azurerm_storage_account" "invalid" {
+			resource "azurerm_storage_account" "test" {
 				name = "Notavalid_name!3"
 			}
 		`,
@@ -119,10 +108,10 @@ var testCases = []struct {
 	},
 
 	{
-		testID:   5,
+		testID:   4,
 		testName: "Less than 3 characters is Invalid",
 		hcl: `
-			resource "azurerm_storage_account" "invalid" {
+			resource "azurerm_storage_account" "test" {
 				name = "ab"
 			}
 		`,
@@ -140,10 +129,10 @@ var testCases = []struct {
 	},
 
 	{
-		testID:   6,
+		testID:   5,
 		testName: "Greater than 24 characters is invalid",
 		hcl: `
-			resource "azurerm_storage_account" "invalid" {
+			resource "azurerm_storage_account" "test" {
 				name = "abcdefghijklmnopqrstuvwxyz"
 			}
 		`,
@@ -161,11 +150,33 @@ var testCases = []struct {
 	},
 
 	{
-		testID:   7,
+		testID:   6,
 		testName: "Between 3 and 24 characters is valid",
 		hcl: `
-			resource "azurerm_storage_account" "invalid" {
+			resource "azurerm_storage_account" "test" {
 				name = "abc1235"
+			}
+		`,
+		expected: helper.Issues{},
+	},
+
+	{
+		testID:   7,
+		testName: "Only letters is a valid",
+		hcl: `
+			resource "azurerm_storage_account" "test" {
+				name = "abcdef"
+			}
+		`,
+		expected: helper.Issues{},
+	},
+
+	{
+		testID:   8,
+		testName: "Only numbers is a valid",
+		hcl: `
+			resource "azurerm_storage_account" "test" {
+				name = "123456"
 			}
 		`,
 		expected: helper.Issues{},
