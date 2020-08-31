@@ -8,26 +8,26 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-var linuxVmScaleSetInvalidSkuRule = AzurermLinuxVirtualMachineScaleSetInvalidSkuRule(AzurermLinuxVirtualMachineScaleSetInvalidSkuRule{
+var vmInvalidSizeRule = AzurermVirtualMachineInvalidVMSizeRule(AzurermVirtualMachineInvalidVMSizeRule{
 	resourceType:  "azurerm_linux_virtual_machine",
-	attributeName: "sku",
+	attributeName: "vm_size",
 })
 
-func Test_AzurermLinuxVirtualMachineScaleSetInvalidSkuRule(t *testing.T) {
+func Test_AzurermVirtualMachineInvalidVMSizeRule(t *testing.T) {
 	//arrange
 	content := `
 			resource "azurerm_linux_virtual_machine" "test" {
-			sku = "Basic_A0"
+			vm_size = "Basic_A0"
 		}`
 
 	expected := helper.Issues{
 		{
-			Rule:    &linuxVmScaleSetInvalidSkuRule,
-			Message: "\"Basic_A0\" is an invalid value as sku",
+			Rule:    &vmInvalidSizeRule,
+			Message: "\"Basic_A0\" is an invalid value as vm_size",
 			Range: hcl.Range{
 				Filename: "instances.tf",
-				Start:    hcl.Pos{Line: 3, Column: 10},
-				End:      hcl.Pos{Line: 3, Column: 20},
+				Start:    hcl.Pos{Line: 3, Column: 14},
+				End:      hcl.Pos{Line: 3, Column: 24},
 			},
 		},
 	}
@@ -37,7 +37,7 @@ func Test_AzurermLinuxVirtualMachineScaleSetInvalidSkuRule(t *testing.T) {
 	defer ctrl.Finish()
 
 	//act
-	if err := linuxVmScaleSetInvalidSkuRule.Check(runner); err != nil {
+	if err := vmInvalidSizeRule.Check(runner); err != nil {
 		t.Fatalf("Unexpected error occurred: %s", err)
 	}
 
