@@ -16,7 +16,7 @@ var linuxVmInvalidSizeRule = AzurermLinuxVirtualMachineInvalidSizeRule(AzurermLi
 func Test_AzurermLinuxVirtualMachineInvalidSizeRule(t *testing.T) {
 	//arrange
 	content := `
-		resource "azurerm_linux_virtual_machine" "test" {
+			resource "azurerm_linux_virtual_machine" "test" {
 			size = "Basic_A0"
 		}`
 
