@@ -9,14 +9,14 @@ import (
 )
 
 var vmInvalidSizeRule = AzurermVirtualMachineInvalidVMSizeRule(AzurermVirtualMachineInvalidVMSizeRule{
-	resourceType:  "azurerm_linux_virtual_machine",
+	resourceType:  "azurerm_virtual_machine",
 	attributeName: "vm_size",
 })
 
 func Test_AzurermVirtualMachineInvalidVMSizeRule(t *testing.T) {
 	//arrange
 	content := `
-			resource "azurerm_linux_virtual_machine" "test" {
+			resource "azurerm_virtual_machine" "test" {
 			vm_size = "Basic_A0"
 		}`
 
