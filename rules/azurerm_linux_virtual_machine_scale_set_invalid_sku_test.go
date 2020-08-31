@@ -9,14 +9,14 @@ import (
 )
 
 var linuxVmScaleSetInvalidSkuRule = AzurermLinuxVirtualMachineScaleSetInvalidSkuRule(AzurermLinuxVirtualMachineScaleSetInvalidSkuRule{
-	resourceType:  "azurerm_linux_virtual_machine",
+	resourceType:  "azurerm_linux_virtual_machine_scale_set",
 	attributeName: "sku",
 })
 
 func Test_AzurermLinuxVirtualMachineScaleSetInvalidSkuRule(t *testing.T) {
 	//arrange
 	content := `
-			resource "azurerm_linux_virtual_machine" "test" {
+			resource "azurerm_linux_virtual_machine_scale_set" "test" {
 			sku = "Basic_A0"
 		}`
 
