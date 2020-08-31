@@ -8,7 +8,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-var linuxvmsizerule = AzurermLinuxVirtualMachineInvalidSizeRule(AzurermLinuxVirtualMachineInvalidSizeRule{
+var linuxVmInvalidSizeRule = AzurermLinuxVirtualMachineInvalidSizeRule(AzurermLinuxVirtualMachineInvalidSizeRule{
 	resourceType:  "azurerm_linux_virtual_machine",
 	attributeName: "size",
 })
@@ -22,7 +22,7 @@ func Test_AzurermLinuxVirtualMachineInvalidSizeRule(t *testing.T) {
 
 	expected := helper.Issues{
 		{
-			Rule:    &linuxvmsizerule,
+			Rule:    &linuxVmInvalidSizeRule,
 			Message: "\"Basic_A0\" is an invalid value as size",
 			Range: hcl.Range{
 				Filename: "instances.tf",
@@ -37,7 +37,7 @@ func Test_AzurermLinuxVirtualMachineInvalidSizeRule(t *testing.T) {
 	defer ctrl.Finish()
 
 	//act
-	if err := linuxvmsizerule.Check(runner); err != nil {
+	if err := linuxVmInvalidSizeRule.Check(runner); err != nil {
 		t.Fatalf("Unexpected error occurred: %s", err)
 	}
 
