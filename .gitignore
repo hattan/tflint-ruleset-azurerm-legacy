@@ -1,2 +1,3 @@
 tools/apispec-rule-gen/schema/.terraform
 tflint-ruleset-azurerm
+.vscode/
