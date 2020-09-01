@@ -20,6 +20,27 @@ func Test_GetAzureVmSizes_ValidUrl_ResultArrayGreaterThanZero(t *testing.T) {
 	assert.True(t, len(sizes) > 0)
 }
 
+func Test_GetAzureVmSizes_ValidUrl_FileSaved(t *testing.T) {
+	//arrange
+	validUrl := "https://tflintrulesstore.z5.web.core.windows.net/vm-size.json"
+	localJsonFile := ".tflint-azure-config/vm-size.json"
+
+	// Ensure that the file does not exist
+	if fileExists(localJsonFile) {
+		err := os.Remove(localJsonFile)
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
+
+	//act
+	GetAzureVmSizesWithUrl(validUrl, localJsonFile)
+
+	//assert
+	jsonFileExists := fileExists(localJsonFile)
+	assert.True(t, jsonFileExists)
+}
+
 func Test_GetAzureVmSizes_InvalidUrl_FileDoesNotExist_ResultArrayGreaterThanZero(t *testing.T) {
 	//arrange
 	validUrl := "https://tflintrulesstore.z5.web.core.windows.net/somenonexistentfile.json"

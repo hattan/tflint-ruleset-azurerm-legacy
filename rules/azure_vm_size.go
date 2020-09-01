@@ -28,6 +28,12 @@ func GetAzureVmSizesWithUrl(url string, jsonFilePath string) []string {
 		}
 
 		json.Unmarshal(body, &sizeData)
+
+		// Save the file locally
+		err = ioutil.WriteFile(jsonFilePath, body, 0644)
+		if err != nil {
+			log.Fatalln(err)
+		}
 	} else {
 		// If there is an error retrieving the file from the storage account, check for a local cached file instead
 		if fileExists(jsonFilePath) {
