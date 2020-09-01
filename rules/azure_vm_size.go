@@ -9,15 +9,14 @@ import (
 )
 
 func GetAzureVmSizes() []string {
-	return GetAzureVmSizesWithUrl("https://tflintrulesstore.z5.web.core.windows.net/vm-size.json")
+	return GetAzureVmSizesWithUrl("https://tflintrulesstore.z5.web.core.windows.net/vm-size.json", ".tflint-azure-config/vm-size.json")
 }
 
-func GetAzureVmSizesWithUrl(url string) []string {
+func GetAzureVmSizesWithUrl(url string, jsonFilePath string) []string {
 	// Attempt to get vm-size.json data file from storage account
 	resp, err := http.Get(url)
 
 	var sizeData []string
-	localJsonFile := ".tflint-azure-config/vm-size.json"
 
 	// If the file was successfully retrieved from the storage account, proceed to parse data
 	if err == nil && resp.StatusCode == 200 {
@@ -31,9 +30,9 @@ func GetAzureVmSizesWithUrl(url string) []string {
 		json.Unmarshal(body, &sizeData)
 	} else {
 		// If there is an error retrieving the file from the storage account, check for a local cached file instead
-		if fileExists(localJsonFile) {
+		if fileExists(jsonFilePath) {
 			// If the previously downloaded file exists, use that
-			body, err := ioutil.ReadFile(localJsonFile)
+			body, err := ioutil.ReadFile(jsonFilePath)
 
 			if err != nil {
 				log.Fatalln(err)
@@ -42,9 +41,9 @@ func GetAzureVmSizesWithUrl(url string) []string {
 			json.Unmarshal(body, &sizeData)
 		} else {
 			// If there is no existing file, generate a json from hardcoded data
-			generateVMSizeJSON(localJsonFile)
+			generateVMSizeJSON(jsonFilePath)
 
-			body, err := ioutil.ReadFile(localJsonFile)
+			body, err := ioutil.ReadFile(jsonFilePath)
 
 			if err != nil {
 				log.Fatalln(err)
