@@ -35,12 +35,16 @@ jobs:
         echo "and create a pull request"
 
       # Example from watch.yml:
-      # const fs = require('fs')
-      # const data = fs.readFileSync('snapshot.diff', 'utf-8')
-      # if (data === "") {
-      #   console.log("No diff. Skipped.")
-      #   return
-      # }
+      const fs = require('fs')
+      const data = fs.readFileSync('vmsize_snapshot.diff', 'utf-8')
+      if (data === "") {
+        console.log("No diff. Skipped.")
+        return
+      }
+      else {
+        console.log("Diff exists.")
+        return
+      }
 
       # github.issues.create({
       #   owner: 'terraform-linters',
