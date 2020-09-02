@@ -21,6 +21,31 @@ jobs:
         curl https://tflintrulesstore.z5.web.core.windows.net/vm-size.json --output rules/.tflint-azure-config/vm-size.json
         echo "Done."
         echo "Calculating diff..."
-        git diff
+        git diff > vmsize_snapshot.diff
         echo "Done."
+    - name: Regenerate Go code and create PR
+      # uses: actions/github-script@v2
+      # with:
+      # github-token: ${{secrets.GITHUB_TOKEN}}
+      # script: |
+      run: |
+        echo "Placeholder"
+        echo "Check snapshot for diff"
+        echo "If one exists, regenerate Go code"
+        echo "and create a pull request"
 
+      # Example from watch.yml:
+      # const fs = require('fs')
+      # const data = fs.readFileSync('snapshot.diff', 'utf-8')
+      # if (data === "") {
+      #   console.log("No diff. Skipped.")
+      #   return
+      # }
+
+      # github.issues.create({
+      #   owner: 'terraform-linters',
+      #   repo: 'tflint-ruleset-azurerm',
+      #   title: '🤖 MicrosoftDocs/azure-docs Changes Report',
+      #   body: "Changes found from the saved snapshots :eyes:\n\n```diff\n" + data + "```\n\nhttps://github.com/MicrosoftDocs/azure-docs/blob/master/articles/virtual-machines/linux/sizes.md",
+      #   labels: ['bot'],
+      # })
