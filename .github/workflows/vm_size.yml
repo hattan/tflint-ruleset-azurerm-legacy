@@ -24,27 +24,20 @@ jobs:
         git diff > vmsize_snapshot.diff
         echo "Done."
     - name: Regenerate Go code and create PR
-      # uses: actions/github-script@v2
-      # with:
-      # github-token: ${{secrets.GITHUB_TOKEN}}
-      # script: |
-      run: |
-        echo "Placeholder"
-        echo "Check snapshot for diff"
-        echo "If one exists, regenerate Go code"
-        echo "and create a pull request"
-
-      # Example from watch.yml:
-      const fs = require('fs')
-      const data = fs.readFileSync('vmsize_snapshot.diff', 'utf-8')
-      if (data === "") {
-        console.log("No diff. Skipped.")
-        return
-      }
-      else {
-        console.log("Diff exists.")
-        return
-      }
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const fs = require('fs')
+          const data = fs.readFileSync('vmsize_snapshot.diff', 'utf-8')
+          if (data === "") {
+            console.log("No diff. Skipped.")
+            return
+          }
+          else {
+            console.log("Diff exists.")
+            return
+          }
 
       # github.issues.create({
       #   owner: 'terraform-linters',
