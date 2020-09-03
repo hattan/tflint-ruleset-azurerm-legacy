@@ -23,6 +23,15 @@ jobs:
         echo "Calculating diff..."
         git diff > vmsize_snapshot.diff
         echo "Done."
+    - name: Check that json file is accessible
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const fs = require('fs')
+          const data = fs.readFileSync('rules/.tflint-azure-config/vm-size.json', 'utf-8')
+          console.log("Contents of vm-size.json:diff.")
+          console.log(data)
     - name: Regenerate Go code and create PR
       uses: actions/github-script@v2
       with:
@@ -31,18 +40,16 @@ jobs:
           const fs = require('fs')
           const data = fs.readFileSync('vmsize_snapshot.diff', 'utf-8')
           if (data === "") {
-            console.log("No diff. Skipped.")
+            console.log("No diff.")
             return
           }
           else {
             console.log("Diff exists.")
+            // Write test first
+            // Regenerate go code file
+            // Read json file and store in array
+            // Write go file
+
+            // Create PR
             return
           }
-
-      # github.issues.create({
-      #   owner: 'terraform-linters',
-      #   repo: 'tflint-ruleset-azurerm',
-      #   title: '🤖 MicrosoftDocs/azure-docs Changes Report',
-      #   body: "Changes found from the saved snapshots :eyes:\n\n```diff\n" + data + "```\n\nhttps://github.com/MicrosoftDocs/azure-docs/blob/master/articles/virtual-machines/linux/sizes.md",
-      #   labels: ['bot'],
-      # })
