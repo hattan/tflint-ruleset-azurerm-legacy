@@ -81,19 +81,19 @@ jobs:
                             return console.error(err);
                         }
                         console.log("End of file written successfully.");
+
+                        // Create PR
+                        console.log("Creating PR...");
+                        console.log("Ref that triggered PR: " + ${{ github.ref }});
+                        github.pulls.create({
+                          owner: 'terraform-linters',
+                          repo: 'tflint-ruleset-azurerm',
+                          title: "Update Azure VM Sizes List",
+                          head: ${{ github.ref }},
+                          base: "master"
+                        });
                     });
                 })
-            });
-
-            // Create PR
-            console.log("Creating PR...");
-            console.log("Ref that triggered PR: " + ${{ github.ref }});
-            github.pulls.create({
-              owner: 'terraform-linters',
-              repo: 'tflint-ruleset-azurerm',
-              title: "Update Azure VM Sizes List",
-              head: ${{ github.ref }},
-              base: "master"
             });
 
             return
