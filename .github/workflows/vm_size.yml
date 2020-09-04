@@ -26,7 +26,7 @@ jobs:
     - name: Regenerate Go code and create PR
       uses: actions/github-script@v2
       with:
-        github-token: "${{secrets.GITHUB_TOKEN}}"
+        github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
           const fs = require('fs')
           const data = fs.readFileSync('vmsize_snapshot.diff', 'utf-8')
