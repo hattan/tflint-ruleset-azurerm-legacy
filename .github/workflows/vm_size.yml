@@ -46,15 +46,9 @@ jobs:
           else {
             console.log("Diff exists.")
 
-            // Possibly: Need to create and check out new branch for changes?
-            octokit.git.createRef({
-              owner: 'terraform-linters',
-              repo: 'tflint-ruleset-azurerm',
-              ref: "refs/heads/vm-size-update",
-              sha: ?,
-            });
-
             // Regenerate go code file
+            console.log("Regenerating Go code file...");
+
             var goCodeFilePath = "azure_vm_size_list.go";
 
             // Write headers and static code at top of go code file
@@ -73,8 +67,6 @@ jobs:
                 for (i in dataArray) {
                     vmSizeString += ("    \"" + dataArray[i] + "\",\n");
                 }
-                console.log("vmSizeString:");
-                console.log(vmSizeString);
 
                 // Write vm size data to go code file
                 fs.appendFile(goCodeFilePath, vmSizeString, function(err) {
@@ -94,11 +86,13 @@ jobs:
             });
 
             // Create PR
+            console.log("Creating PR...");
+            console.log("Ref that triggered PR: " + ${{ github.ref }});
             github.pulls.create({
               owner: 'terraform-linters',
               repo: 'tflint-ruleset-azurerm',
               title: "Update Azure VM Sizes List",
-              head: "refs/heads/vm-size-update",
+              head: ${{ github.ref }},
               base: "master"
             });
 
