@@ -75,13 +75,13 @@ jobs:
 
                         // Create PR
                         console.log("Creating PR...");
-                        //github.pulls.create({
-                          //owner: 'terraform-linters',
-                          //repo: 'tflint-ruleset-azurerm',
-                          //title: "Update Azure VM Sizes List",
-                          //head: "${{ github.ref }}"",
-                          //base: "master"
-                        //});
+                        github.pulls.create({
+                          owner: 'terraform-linters',
+                          repo: 'tflint-ruleset-azurerm',
+                          title: "Update Azure VM Sizes List",
+                          head: "${{ github.ref }}"",
+                          base: "master"
+                        });
                         console.log("Done.");
                     });
                 })
