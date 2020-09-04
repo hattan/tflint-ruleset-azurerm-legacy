@@ -59,7 +59,7 @@ jobs:
                 console.log("File header written successfully.");
 
                 // Get data from vm-size.json file
-                const jsonFileData = fs.readFileSync('vm-size.json', 'utf-8');
+                const jsonFileData = fs.readFileSync('rules/.tflint-azure-config/vm-size.json', 'utf-8');
                 var dataArray = JSON.parse(jsonFileData);
 
                 // Create list of vm size elements to write out to file
