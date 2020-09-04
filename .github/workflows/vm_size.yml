@@ -79,7 +79,7 @@ jobs:
                           owner: 'terraform-linters',
                           repo: 'tflint-ruleset-azurerm',
                           title: "Update Azure VM Sizes List",
-                          head: "${{ github.ref }}"",
+                          head: "${{ github.ref }}",
                           base: "master"
                         });
                         console.log("Done.");
