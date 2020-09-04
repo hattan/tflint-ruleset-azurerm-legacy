@@ -84,7 +84,7 @@ jobs:
 
                         // Create PR
                         console.log("Creating PR...");
-                        console.log("Ref that triggered PR: " + ${{ github.ref }});
+                        // console.log("Ref that triggered PR: " + ${{ github.ref }});
                         github.pulls.create({
                           owner: 'terraform-linters',
                           repo: 'tflint-ruleset-azurerm',
