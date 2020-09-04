@@ -74,7 +74,7 @@ jobs:
                         console.log("End of file written successfully.");
 
                         // Create PR
-                        //console.log("Creating PR...");
+                        console.log("Creating PR...");
                         //github.pulls.create({
                           //owner: 'terraform-linters',
                           //repo: 'tflint-ruleset-azurerm',
@@ -82,7 +82,7 @@ jobs:
                           //head: "${{ github.ref }}"",
                           //base: "master"
                         //});
-                        //console.log("Done.");
+                        console.log("Done.");
                     });
                 })
             });
