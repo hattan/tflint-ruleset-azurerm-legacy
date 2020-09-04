@@ -49,7 +49,7 @@ jobs:
             // Regenerate go code file
             console.log("Regenerating Go code file...");
 
-            var goCodeFilePath = "azure_vm_size_list.go";
+            var goCodeFilePath = "rules/azure_vm_size_list.go";
 
             // Write headers and static code at top of go code file
             fs.writeFile(goCodeFilePath, 'package rules\n\nvar azureVmSizeList = []string{\n', function(err) {
