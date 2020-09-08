@@ -78,7 +78,7 @@ jobs:
                           owner: 'hattan',
                           repo: 'tflint-ruleset-azurerm',
                           ref: "refs/heads/vm-size-update",
-                          sha "${{ github.sha }}",
+                          sha: "${{ github.sha }}",
                         });
 
                         // Create PR
