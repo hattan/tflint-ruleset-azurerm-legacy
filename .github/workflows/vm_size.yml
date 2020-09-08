@@ -73,7 +73,9 @@ jobs:
                         }
                         console.log("End of file written successfully.");
 
-                        // Create new ref pointing to the commit
+                        // Create commit?  Is this needed?
+
+                        // Create new ref/feature branch pointing to the commit
                         github.git.createRef({
                           owner: 'hattan',
                           repo: 'tflint-ruleset-azurerm',
@@ -87,7 +89,7 @@ jobs:
                           owner: 'hattan',
                           repo: 'tflint-ruleset-azurerm',
                           title: "Update Azure VM Sizes List",
-                          head: "refs/heads/vm-size-update",
+                          head: "${{ github.ref }}",
                           base: "master"
                         });
                         console.log("Done.");
