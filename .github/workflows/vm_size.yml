@@ -74,7 +74,7 @@ jobs:
                         console.log("End of file written successfully.");
 
                         // Create new ref pointing to the commit
-                        octokit.git.createRef({
+                        github.git.createRef({
                           owner: 'hattan',
                           repo: 'tflint-ruleset-azurerm',
                           ref: "refs/heads/vm-size-update",
