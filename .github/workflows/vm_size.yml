@@ -73,13 +73,21 @@ jobs:
                         }
                         console.log("End of file written successfully.");
 
+                        // Create new ref pointing to the commit
+                        octokit.git.createRef({
+                          owner: 'hattan',
+                          repo: 'tflint-ruleset-azurerm',
+                          ref: "refs/heads/vm-size-update",
+                          sha "${{ github.sha }}",
+                        });
+
                         // Create PR
                         console.log("Creating PR...");
                         github.pulls.create({
                           owner: 'hattan',
                           repo: 'tflint-ruleset-azurerm',
                           title: "Update Azure VM Sizes List",
-                          head: "${{ github.ref }}",
+                          head: "refs/heads/vm-size-update",
                           base: "master"
                         });
                         console.log("Done.");
